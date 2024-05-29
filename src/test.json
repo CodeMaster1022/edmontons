@@ -1,0 +1,79 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Canada",
+        "country_code": "ca",
+        "state": "Alberta",
+        "county": "Division No. 17",
+        "lon": -116.38272289348632,
+        "lat": 57.25706485,
+        "state_code": "AB",
+        "formatted": "Division No. 17, AB, Canada",
+        "address_line1": "Division No. 17, AB",
+        "address_line2": "Canada",
+        "name": "Division No. 17",
+        "categories": ["administrative", "administrative.county_level"],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "Division No. 17",
+            "type": "boundary",
+            "osm_id": -15697064,
+            "boundary": "administrative",
+            "osm_type": "r",
+            "admin_level": 6,
+            "country_code": "ca"
+          }
+        },
+        "place_id": "51c8eab2f97e185dc059f04e31df309f4c40f00101f901a884ef0000000000c0020992030f4469766973696f6e204e6f2e203137"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": "Point[][], check \"Show coordinates\" to see coordinates"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "country": "Canada",
+        "country_code": "ca",
+        "state": "Alberta",
+        "county": "Division No. 2",
+        "lon": -112.2223488050708,
+        "lat": 50.104083149999994,
+        "state_code": "AB",
+        "formatted": "Division No. 2, AB, Canada",
+        "address_line1": "Division No. 2, AB",
+        "address_line2": "Canada",
+        "name": "Division No. 2",
+        "categories": ["administrative", "administrative.county_level"],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "name": "Division No. 2",
+            "type": "boundary",
+            "osm_id": -15693032,
+            "boundary": "administrative",
+            "osm_type": "r",
+            "admin_level": 6,
+            "country_code": "ca"
+          }
+        },
+        "place_id": "5162e234993a0e5cc0594d6ebd98520d4940f00101f901e874ef0000000000c0020992030e4469766973696f6e204e6f2e2032"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": "Point[][], check \"Show coordinates\" to see coordinates"
+      }
+    }
+  ]
+}
