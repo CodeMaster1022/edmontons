@@ -1,26 +1,61 @@
 import { MapContainer, GeoJSON, TileLayer, ScaleControl } from "react-leaflet";
 import { useState, useEffect, useRef, useMemo } from "react";
 import "leaflet/dist/leaflet.css";
-import Alberta from "./edmonton.json";
+import edmonton from "./edmonton.json";
+// import test from "./test.json";
+import axios from "axios";
 import { getColor, layersUtils, getCenterOfGeoJson } from "./mapUtils";
 
-const COUNTRY_VIEW_ID = "edmonton_c";
+const CanadaList = ["Manitoba"];
+const fetchDataForRegion = async (region) => {
+  try {
+    const response = await axios.get(
+      `https://nominatim.openstreetmap.org/search?state=${region.toLowerCase()}&country=canada&polygon_geojson=1&format=geojson`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data);
+  }
+};
+
+const COUNTRY_VIEW_ID = "edmonton";
 const EdmontonMap = () => {
   const mapStyle = { height: "100vh", width: "100vw" };
-  const [geoJsonId, setGeoJsonId] = useState("edmonton_c");
-  const geoJson = Alberta.Objects[geoJsonId];
+  const [geoJsonId, setGeoJsonId] = useState("edmonton");
+  const geoJson = edmonton.Objects[geoJsonId];
+
   const [bound, setBound] = useState();
   var mapRef = useRef(null);
   var geoJsonRef = useRef(null);
   const mapCenter = getCenterOfGeoJson(geoJson);
-  const onDrillDown = (e) => {
-    const featureId = e.target.feature.id;
-    if (!Alberta.Objects[featureId]) return;
-    setBound([e.target.getBounds()]);
 
-    console.log(e.target.getBounds());
-    setGeoJsonId(featureId);
-  };
+  const [mapData, setMapData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const mapDataArray = await Promise.all(
+          CanadaList.map((region) => fetchDataForRegion(region))
+        );
+        console.log(mapDataArray);
+        setMapData(mapDataArray);
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    fetchData();
+  }, [setMapData]);
+
+  // const onDrillDown = (e) => {
+  //   const featureId = e.target.feature.id;
+  //   if (!edmonton.Objects[featureId]) return;
+  //   setBound([e.target.getBounds()]);
+
+  //   console.log(e.target.getBounds());
+  //   setGeoJsonId(featureId);
+  // };
+
   return (
     <>
       <button
@@ -34,7 +69,7 @@ const EdmontonMap = () => {
         center={mapCenter}
         zoom={10}
         style={mapStyle}
-        bounds={bound}
+        // bounds={bound}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -57,7 +92,7 @@ const EdmontonMap = () => {
     let layerUtils = layersUtils(geoJsonRef, mapRef);
     layer.on({
       mouseover: layerUtils.highlightOnClick,
-      click: onDrillDown,
+      // click: onDrillDown,
     });
   }
 

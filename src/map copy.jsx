@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 // import * as topojson from "topojson-client";
 import features from "./edmonton.json";
-
+import axios from "axios";
 import { getColor, layersUtils, getCenterOfGeoJson } from "./mapUtils";
 const COUNTRY_VIEW_ID = "india-states";
 const Map = () => {
@@ -24,13 +24,24 @@ const Map = () => {
   useEffect(() => {
     console.log(features, "react");
   }, []);
+  const [mapData, setMapData] = useState([]);
+  const fetchData = async () => {
+    try {
+      await axios
+        .get(
+          "https://nominatim.openstreetmap.org/search?state=alberta&country=canada&polygon_geojson=1&format=geojson"
+        )
+        .then((res) => setMapData(res.data));
+      console.log(mapData, "map============>");
+    } catch (error) {
+      alert(error.response.data);
+    }
+  };
   return (
     <>
-      <button
-        onClick={() => setGeoJsonId(COUNTRY_VIEW_ID)}
-        className="backButton"
-      >
-        Back To Country View
+      <button>OnClick</button>
+      <button onClick={fetchData} className="backButton">
+        Back To Country ViewDddddd
       </button>
       <MapContainer ref={mapRef} center={mapCenter} zoom={10} style={mapStyle}>
         <TileLayer
@@ -68,3 +79,15 @@ const Map = () => {
   }
 };
 export default Map;
+  const fetchData = async () => {
+    try {
+      await axios
+        .get(
+          "https://nominatim.openstreetmap.org/search?state=alberta&country=canada&polygon_geojson=1&format=geojson"
+        )
+        .then((res) => setMapData(res.data));
+      console.log(mapData, "map============>");
+    } catch (error) {
+      alert(error.response.data);
+    }
+  };
